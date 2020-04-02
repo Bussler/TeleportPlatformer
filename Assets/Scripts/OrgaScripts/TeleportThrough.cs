@@ -13,7 +13,8 @@ public class TeleportThrough : MonoBehaviour
             this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
-            player.GetComponent<TeleportRay>().resetStats();
+            player.GetComponent<TeleportRay>().teleportingThrough = true;
+            //player.GetComponent<TeleportRay>().resetStats();
 
             StartCoroutine("respawn");
         }

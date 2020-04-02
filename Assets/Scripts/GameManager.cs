@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour //Manages logic inside the game: highsc
 
     public void playerDie() // TODO: testing what else to reset
     {
+        player.GetComponent<TeleportRay>().resetStats();
         player.transform.position = lastCheckpoint.position;
     }
 

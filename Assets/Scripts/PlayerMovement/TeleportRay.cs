@@ -47,6 +47,8 @@ public class TeleportRay : MonoBehaviour
 
     private bool hasClicked = false;
 
+    public bool teleportingThrough = false;//flag set by teleportThrough game object
+
     // Update is called once per frame
     void Update()
     {
@@ -64,6 +66,13 @@ public class TeleportRay : MonoBehaviour
 
         if(hasTarget)
             movePlayer(targetPos);
+
+        if (teleportingThrough)
+        {
+            //check distance to targetPos
+            float distance = Vector2.Distance(new Vector2(this.transform.position.x, this.transform.position.y), targetPos);
+            if (distance <= 0.1f) resetStats();
+        }
 
     }
 
@@ -104,8 +113,29 @@ public class TeleportRay : MonoBehaviour
 
         if (RayHit)
         {
+            //Update: For Teleport through, teleport behind target
+            if (RayHit.transform.gameObject.GetComponent<TeleportThrough>())
+            {
+                //getting direction vector
+                Vector3 mousePos = Input.mousePosition;//gives mouse pos in screen space
+                mousePos = Camera.main.ScreenToWorldPoint(mousePos);//convert screen pos to world pos to look at
+                Vector2 direction = new Vector2(mousePos.x - transform.position.x, //create vector to face the mouse pos
+                                                mousePos.y - transform.position.y);
+                direction /= direction.magnitude; //normalisieren
+
+                if(direction.x>=0) direction.x += 0.5f;
+                else direction.x -= 0.5f;
+                if(direction.y>=0) direction.y += 0.5f;
+                else direction.y -= 0.5f;
+
+                targetPos = RayHit.point+direction;
+            }
+            else
+            {
+                targetPos = RayHit.point;//for other teleport straight to hitpoint
+            }
+
             //Sets intern logic: target to move to, unaffected by physic...
-            targetPos = RayHit.point;
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll; //better than kinematic: make obj unaffected by physic but still enable triggers
             hasTarget = true;
 
@@ -182,6 +212,8 @@ public class TeleportRay : MonoBehaviour
 
     public void resetStats()
     {
+        teleportingThrough = false;
+
         gameObject.GetComponent<SpriteRenderer>().enabled = true;//enables renderer
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation; // freeze at pos
         curStick = null;
