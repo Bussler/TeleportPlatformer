@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Move2D : MonoBehaviour
 {
-    public float moveSpeed=5f;
-    public float inAirMovement = 4f;
+    public float moveSpeed=6f;
+    public float inAirMovement = 6f;
     public float jumpVelocity=6;
     public float fallMultiplier = 3f;
     public float lowJumpMultiplier = 2f;

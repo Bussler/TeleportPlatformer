@@ -7,18 +7,34 @@ public class ShowUnshow : MonoBehaviour
     [SerializeField]
     GameObject target = null;
 
+    [SerializeField]
+    float slowTime = 0.4f;
+
     void Update() // maybe better to use unity event system?
     {
         if (Input.GetMouseButtonDown(1))
         {
             if (target.activeInHierarchy)
             {
-                target.SetActive(false);
+                disableRay();
             }
             else
             {
-                target.SetActive(true);
+                enableRay();
             }
         }
     }
+
+    public void disableRay()
+    {
+        target.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void enableRay()
+    {
+        target.SetActive(true);
+        Time.timeScale = slowTime;
+    }
+
 }

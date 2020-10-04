@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
-  inAirMovement: 4
+  inAirMovement: 6
   jumpVelocity: 6
   fallMultiplier: 3.5
   lowJumpMultiplier: 2
@@ -296,6 +296,7 @@ MonoBehaviour:
     type: 3}
   teleportSound: {fileID: 8300000, guid: 7a03e47c36b3f484f94b4fa31a35ae0c, type: 3}
   clone: {fileID: 5849222814558682515, guid: 26b5c73fd9949cf4abe31bf66f2b0e49, type: 3}
+  teleportingThrough: 0
 --- !u!114 &3335810169413907969
 MonoBehaviour:
   m_ObjectHideFlags: 0

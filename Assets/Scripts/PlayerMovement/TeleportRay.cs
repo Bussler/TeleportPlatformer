@@ -113,6 +113,8 @@ public class TeleportRay : MonoBehaviour
 
         if (RayHit)
         {
+            gameObject.GetComponent<ShowUnshow>().disableRay();
+
             //Update: For Teleport through, teleport behind target
             if (RayHit.transform.gameObject.GetComponent<TeleportThrough>())
             {
